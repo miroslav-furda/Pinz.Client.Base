@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Pinz.Client.Base</id>
-    <version>>$version$</version>
+    <version>$version$</version>
     <title>Pinz.Client.Base</title>
     <authors>Miroslav Furda</authors>
     <owners>Miroslav Furda</owners>

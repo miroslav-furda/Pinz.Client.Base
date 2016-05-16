@@ -5,11 +5,6 @@
     xmlns:convert="clr-namespace:Com.Pinz.Client.Commons.Wpf.Converter"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Office2010Blue/Office2010Blue.MSControls.Core.Implicit.xaml" />
-        <ResourceDictionary Source="Office2010Blue/Office2010Blue.MSControls.Toolkit.Implicit.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
     <convert:BooleanOrConverter x:Key="BooleanOrConverter" />
     <ControlTemplate x:Key="errorTemplateSilverlightStyle">
         <StackPanel Orientation="Horizontal">

@@ -34,6 +34,22 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfUserDO" nillable="true" type="tns:ArrayOfUserDO" />
+  <xs:complexType name="ArrayOfProjectUserDO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProjectUserDO" nillable="true" type="tns:ProjectUserDO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProjectUserDO" nillable="true" type="tns:ArrayOfProjectUserDO" />
+  <xs:complexType name="ProjectUserDO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:UserDO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="IsProjectAdmin" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ProjectUserDO" nillable="true" type="tns:ProjectUserDO" />
   <xs:complexType name="CompanyDO">
     <xs:sequence>
       <xs:element minOccurs="0" name="CompanyId" type="ser:guid" />

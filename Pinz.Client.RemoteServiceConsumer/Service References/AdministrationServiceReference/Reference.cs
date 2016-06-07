@@ -17,6 +17,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UserDO", Namespace="http://schemas.datacontract.org/2004/07/Com.Pinz.Server.DataAccess.Model")]
     [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.ProjectUserDO))]
     public partial class UserDO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -150,6 +151,29 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ProjectUserDO", Namespace="http://schemas.datacontract.org/2004/07/Com.Pinz.Server.DataAccess.Model")]
+    [System.SerializableAttribute()]
+    public partial class ProjectUserDO : Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.UserDO {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsProjectAdminField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsProjectAdmin {
+            get {
+                return this.IsProjectAdminField;
+            }
+            set {
+                if ((this.IsProjectAdminField.Equals(value) != true)) {
+                    this.IsProjectAdminField = value;
+                    this.RaisePropertyChanged("IsProjectAdmin");
+                }
             }
         }
     }
@@ -348,6 +372,16 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference {
             "se")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.UserDO>> ReadAllUsersByProjectAsync(System.Guid projectId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://pinzonline.com/services/IAdministrationService/ReadAllProjectUsersInProjec" +
+            "t", ReplyAction="http://pinzonline.com/services/IAdministrationService/ReadAllProjectUsersInProjec" +
+            "tResponse")]
+        System.Collections.Generic.List<Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.ProjectUserDO> ReadAllProjectUsersInProject(System.Guid projectId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://pinzonline.com/services/IAdministrationService/ReadAllProjectUsersInProjec" +
+            "t", ReplyAction="http://pinzonline.com/services/IAdministrationService/ReadAllProjectUsersInProjec" +
+            "tResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.ProjectUserDO>> ReadAllProjectUsersInProjectAsync(System.Guid projectId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://pinzonline.com/services/IAdministrationService/ReadProjectsForCompanyId", ReplyAction="http://pinzonline.com/services/IAdministrationService/ReadProjectsForCompanyIdRes" +
             "ponse")]
         System.Collections.Generic.List<Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.ProjectDO> ReadProjectsForCompanyId(System.Guid companyId);
@@ -486,6 +520,14 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.UserDO>> ReadAllUsersByProjectAsync(System.Guid projectId) {
             return base.Channel.ReadAllUsersByProjectAsync(projectId);
+        }
+        
+        public System.Collections.Generic.List<Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.ProjectUserDO> ReadAllProjectUsersInProject(System.Guid projectId) {
+            return base.Channel.ReadAllProjectUsersInProject(projectId);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.ProjectUserDO>> ReadAllProjectUsersInProjectAsync(System.Guid projectId) {
+            return base.Channel.ReadAllProjectUsersInProjectAsync(projectId);
         }
         
         public System.Collections.Generic.List<Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.ProjectDO> ReadProjectsForCompanyId(System.Guid companyId) {

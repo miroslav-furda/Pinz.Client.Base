@@ -61,6 +61,15 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
             return userList;
         }
 
+        public List<ProjectUser> ReadAllProjectUsersInProject(Project project)
+        {
+            List<AdministrationServiceReference.ProjectUserDO> rProjectUsers = adminChannel.ReadAllProjectUsersInProject(project.ProjectId);
+            List<ProjectUser> userList = mapper.Map<List<AdministrationServiceReference.ProjectUserDO>, List<ProjectUser>>(rProjectUsers);
+            return userList;
+
+        }
+
+
         public Company ReadCompanyById(Guid id)
         {
             AdministrationServiceReference.CompanyDO rCompany = adminChannel.ReadCompanyById(id);

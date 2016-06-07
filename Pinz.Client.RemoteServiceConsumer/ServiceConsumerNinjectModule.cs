@@ -53,6 +53,8 @@ namespace Com.Pinz.Client.RemoteServiceConsumer
 
                 cfg.CreateMap<AdministrationServiceReference.UserDO, User>();
                 cfg.CreateMap<User, AdministrationServiceReference.UserDO>();
+                cfg.CreateMap<AdministrationServiceReference.ProjectUserDO, ProjectUser>();
+                cfg.CreateMap<ProjectUser, AdministrationServiceReference.ProjectUserDO>();
 
                 cfg.CreateMap<AuthorisationServiceReference.UserDO, User>();
                 cfg.CreateMap<User, AuthorisationServiceReference.UserDO>();

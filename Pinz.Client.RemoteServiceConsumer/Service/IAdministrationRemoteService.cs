@@ -12,6 +12,8 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Service
 
         List<User> ReadAllUsersByProject(Project project);
 
+        List<ProjectUser> ReadAllProjectUsersInProject(Project project);
+
         List<Project> ReadAdminProjectsForUser(User user);
 
         bool ChangeUserPassword(User user, string oldPassword, string newPassword, string newPassword2);

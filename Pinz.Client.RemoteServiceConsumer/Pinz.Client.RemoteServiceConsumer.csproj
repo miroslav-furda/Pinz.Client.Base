@@ -50,8 +50,8 @@
       <HintPath>..\packages\Ninject.Extensions.Interception.DynamicProxy.3.2.0.0\lib\net45-full\Ninject.Extensions.Interception.DynamicProxy.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Pinz.DomainModel, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Pinz.DomainModel.0.2.0.0\lib\net452\Pinz.DomainModel.dll</HintPath>
+    <Reference Include="Pinz.DomainModel, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Pinz.DomainModel.0.3.0.0\lib\net452\Pinz.DomainModel.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Prism, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
@@ -131,6 +131,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\AdministrationServiceReference\Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.ProjectDO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdministrationServiceReference\Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.ProjectUserDO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\AdministrationServiceReference\Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.UserDO.datasource">

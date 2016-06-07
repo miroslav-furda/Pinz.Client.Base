@@ -37,6 +37,12 @@
   <wsdl:message name="IAdministrationService_ReadAllUsersByProject_OutputMessage">
     <wsdl:part name="parameters" element="tns:ReadAllUsersByProjectResponse" />
   </wsdl:message>
+  <wsdl:message name="IAdministrationService_ReadAllProjectUsersInProject_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReadAllProjectUsersInProject" />
+  </wsdl:message>
+  <wsdl:message name="IAdministrationService_ReadAllProjectUsersInProject_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReadAllProjectUsersInProjectResponse" />
+  </wsdl:message>
   <wsdl:message name="IAdministrationService_ReadProjectsForCompanyId_InputMessage">
     <wsdl:part name="parameters" element="tns:ReadProjectsForCompanyId" />
   </wsdl:message>
@@ -123,6 +129,10 @@
     <wsdl:operation name="ReadAllUsersByProject">
       <wsdl:input wsaw:Action="http://pinzonline.com/services/IAdministrationService/ReadAllUsersByProject" message="tns:IAdministrationService_ReadAllUsersByProject_InputMessage" />
       <wsdl:output wsaw:Action="http://pinzonline.com/services/IAdministrationService/ReadAllUsersByProjectResponse" message="tns:IAdministrationService_ReadAllUsersByProject_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadAllProjectUsersInProject">
+      <wsdl:input wsaw:Action="http://pinzonline.com/services/IAdministrationService/ReadAllProjectUsersInProject" message="tns:IAdministrationService_ReadAllProjectUsersInProject_InputMessage" />
+      <wsdl:output wsaw:Action="http://pinzonline.com/services/IAdministrationService/ReadAllProjectUsersInProjectResponse" message="tns:IAdministrationService_ReadAllProjectUsersInProject_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ReadProjectsForCompanyId">
       <wsdl:input wsaw:Action="http://pinzonline.com/services/IAdministrationService/ReadProjectsForCompanyId" message="tns:IAdministrationService_ReadProjectsForCompanyId_InputMessage" />

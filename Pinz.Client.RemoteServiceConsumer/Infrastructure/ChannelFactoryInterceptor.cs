@@ -2,6 +2,7 @@
 using Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl;
 using Ninject;
 using Ninject.Extensions.Interception;
+using System;
 
 namespace Com.Pinz.Client.RemoteServiceConsumer.Infrastructure
 {
@@ -26,6 +27,9 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Infrastructure
                 try
                 {
                     invocation.Proceed();
+                }catch(Exception ex)
+                {
+                    throw ex;
                 }
                 finally
                 {

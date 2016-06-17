@@ -44,13 +44,13 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.TaskServiceReference {
         private bool IsCompleteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<Com.Pinz.Client.RemoteServiceConsumer.TaskServiceReference.TaskPriority> PriorityField;
+        private System.Nullable<Com.Pinz.DomainModel.TaskPriority> PriorityField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<System.DateTime> StartDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Com.Pinz.Client.RemoteServiceConsumer.TaskServiceReference.TaskStatus StatusField;
+        private Com.Pinz.DomainModel.TaskStatus StatusField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Guid TaskIdField;
@@ -163,7 +163,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.TaskServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<Com.Pinz.Client.RemoteServiceConsumer.TaskServiceReference.TaskPriority> Priority {
+        public System.Nullable<Com.Pinz.DomainModel.TaskPriority> Priority {
             get {
                 return this.PriorityField;
             }
@@ -189,7 +189,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.TaskServiceReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Com.Pinz.Client.RemoteServiceConsumer.TaskServiceReference.TaskStatus Status {
+        public Com.Pinz.DomainModel.TaskStatus Status {
             get {
                 return this.StatusField;
             }
@@ -248,40 +248,6 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.TaskServiceReference {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TaskPriority", Namespace="http://schemas.datacontract.org/2004/07/Com.Pinzonline.DomainModel")]
-    public enum TaskPriority : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Low = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Normal = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        High = 2,
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TaskStatus", Namespace="http://schemas.datacontract.org/2004/07/Com.Pinzonline.DomainModel")]
-    public enum TaskStatus : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        TaskNotStarted = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        TaskInProgress = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        TaskComplete = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        TaskWaiting = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        TaskDeferred = 4,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]

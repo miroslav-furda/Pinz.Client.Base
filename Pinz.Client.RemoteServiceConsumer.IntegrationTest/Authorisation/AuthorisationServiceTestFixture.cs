@@ -1,7 +1,10 @@
 ﻿using Com.Pinz.Client.DomainModel;
+using Com.Pinz.Client.RemoteServiceConsumer.Callback;
 using Com.Pinz.Client.RemoteServiceConsumer.Service;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using Ninject;
+using Pinz.Client.RemoteServiceConsumer.IntegrationTest;
 using System;
 
 namespace Com.Pinz.Client.RemoteServiceConsumer.Authorisation
@@ -22,14 +25,17 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Authorisation
         {
             kernel = new StandardKernel();
             kernel.Load(new ServiceConsumerNinjectModule());
+            Mock<IServiceRunningIndicator> servMock = new Mock<IServiceRunningIndicator>();
+            kernel.Bind<IServiceRunningIndicator>().ToConstant(servMock.Object);
+
 
             service = kernel.Get<IAdministrationRemoteService>();
             pinzService = kernel.Get<IPinzAdminRemoteService>();
             authorisationService = kernel.Get<IAuthorisationRemoteService>();
 
             UserNameClientCredentials credentials = kernel.Get<UserNameClientCredentials>();
-            credentials.UserName = "test@test.com";
-            credentials.Password = "test";
+            credentials.UserName = TestUserCredentials.UserName;
+            credentials.Password = TestUserCredentials.Password;
             credentials.UpdateCredentialsForAllFactories();
 
             Company company1 = new Company()

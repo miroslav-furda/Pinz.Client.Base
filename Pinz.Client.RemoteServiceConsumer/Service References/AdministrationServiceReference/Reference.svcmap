@@ -21,15 +21,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://5a109c6b4fcb4234a03b4dad3883a59d.cloudapp.net/AdministrationService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net//AdministrationService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="AdministrationService.wsdl" MetadataType="Wsdl" ID="51fe46ee-48ef-4924-b95d-84ca94f367d6" SourceId="1" SourceUrl="http://5a109c6b4fcb4234a03b4dad3883a59d.cloudapp.net/AdministrationService.svc?wsdl=wsdl0" />
-    <MetadataFile FileName="AdministrationService.xsd" MetadataType="Schema" ID="dad23501-8d5a-4795-a709-36c3386debac" SourceId="1" SourceUrl="http://5a109c6b4fcb4234a03b4dad3883a59d.cloudapp.net/AdministrationService.svc?xsd=xsd1" />
-    <MetadataFile FileName="AdministrationService.disco" MetadataType="Disco" ID="5956a77b-d064-4f9e-b5bf-567d5192702c" SourceId="1" SourceUrl="http://5a109c6b4fcb4234a03b4dad3883a59d.cloudapp.net/AdministrationService.svc?disco" />
-    <MetadataFile FileName="AdministrationService1.wsdl" MetadataType="Wsdl" ID="9b6f77d9-c67d-4b3a-be62-a73e90abf789" SourceId="1" SourceUrl="http://5a109c6b4fcb4234a03b4dad3883a59d.cloudapp.net/AdministrationService.svc?wsdl" />
-    <MetadataFile FileName="AdministrationService1.xsd" MetadataType="Schema" ID="3975bc74-83e8-46aa-970c-4e6bb5c923d8" SourceId="1" SourceUrl="http://5a109c6b4fcb4234a03b4dad3883a59d.cloudapp.net/AdministrationService.svc?xsd=xsd0" />
-    <MetadataFile FileName="AdministrationService2.xsd" MetadataType="Schema" ID="4c2e2def-abcc-44ee-b420-5e47aafc9b36" SourceId="1" SourceUrl="http://5a109c6b4fcb4234a03b4dad3883a59d.cloudapp.net/AdministrationService.svc?xsd=xsd2" />
+    <MetadataFile FileName="AdministrationService3.xsd" MetadataType="Schema" ID="2914d478-60bd-47ff-ac58-7901b8e555f0" SourceId="1" SourceUrl="http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/AdministrationService.svc?xsd=xsd2" />
+    <MetadataFile FileName="AdministrationService31.xsd" MetadataType="Schema" ID="4fce0aac-f3cd-4f42-9102-6dff0fc37d94" SourceId="1" SourceUrl="http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/AdministrationService.svc?xsd=xsd1" />
+    <MetadataFile FileName="AdministrationService1.disco" MetadataType="Disco" ID="70e88fb5-8e75-4af6-a7db-609ee4b7a8ea" SourceId="1" SourceUrl="http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/AdministrationService.svc?disco" />
+    <MetadataFile FileName="AdministrationService2.wsdl" MetadataType="Wsdl" ID="24a3699e-d014-4d06-b11c-a811351d78b9" SourceId="1" SourceUrl="http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/AdministrationService.svc?wsdl" />
+    <MetadataFile FileName="AdministrationService21.wsdl" MetadataType="Wsdl" ID="0f0e2d63-1f49-4fc4-bdb7-54f2f6695737" SourceId="1" SourceUrl="http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/AdministrationService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="AdministrationService32.xsd" MetadataType="Schema" ID="d75a4c21-6bf6-4346-88b9-d4a70164ad5e" SourceId="1" SourceUrl="http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/AdministrationService.svc?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

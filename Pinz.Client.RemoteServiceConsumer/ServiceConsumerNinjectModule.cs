@@ -21,10 +21,10 @@ namespace Com.Pinz.Client.RemoteServiceConsumer
             Tracer.TraceInformation("ServiceConsumerNinjectModule loading ... ");
             Kernel.Bind<IMapper>().ToMethod(StartAutoMapper).InSingletonScope().Named("ServiceConsumerMapper");
 
-            Kernel.Bind<ChannelFactory<AdministrationServiceReference.IAdministrationService>>().ToSelf().InSingletonScope().WithConstructorArgument("WSHttpBinding_IAdministrationService");
-            Kernel.Bind<ChannelFactory<TaskServiceReference.ITaskService>>().ToSelf().InSingletonScope().WithConstructorArgument("WSHttpBinding_ITaskService");
-            Kernel.Bind<ChannelFactory<AuthorisationServiceReference.IAuthorisationService>>().ToSelf().InSingletonScope().WithConstructorArgument("WSHttpBinding_IAuthorisationService");
-            Kernel.Bind<ChannelFactory<PinzAdminServiceReference.IPinzAdminService>>().ToSelf().InSingletonScope().WithConstructorArgument("WSHttpBinding_IPinzAdminService");
+            Kernel.Bind<ChannelFactory<AdministrationServiceReference.IAdministrationService>>().ToSelf().InSingletonScope().WithConstructorArgument("IAdministrationService");
+            Kernel.Bind<ChannelFactory<TaskServiceReference.ITaskService>>().ToSelf().InSingletonScope().WithConstructorArgument("ITaskService");
+            Kernel.Bind<ChannelFactory<AuthorisationServiceReference.IAuthorisationService>>().ToSelf().InSingletonScope().WithConstructorArgument("IAuthorisationService");
+            Kernel.Bind<ChannelFactory<PinzAdminServiceReference.IPinzAdminService>>().ToSelf().InSingletonScope().WithConstructorArgument("IPinzAdminService");
 
             Kernel.Bind<UserNameClientCredentials>().ToSelf().InSingletonScope();
 

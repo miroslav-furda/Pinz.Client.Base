@@ -221,9 +221,9 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://5a109c6b4fcb4234a03b4dad3883a59d.cloudapp.net/PinzAdminService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://5a109c6b4fcb4234a03b4dad3883a59d.cloudapp.net/PinzAdminService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://5a109c6b4fcb4234a03b4dad3883a59d.cloudapp.net/PinzAdminService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Com.Pinz.Server.DataAccess.Model" />
+      <xsd:import schemaLocation="http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/PinzAdminService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/PinzAdminService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/PinzAdminService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Com.Pinz.Server.DataAccess.Model" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPinzAdminService_CreateCompany_InputMessage">
@@ -297,9 +297,9 @@
   </wsdl:binding>
   <wsdl:service name="PinzAdminService">
     <wsdl:port name="WSHttpBinding_IPinzAdminService" binding="tns:WSHttpBinding_IPinzAdminService">
-      <soap12:address location="http://5a109c6b4fcb4234a03b4dad3883a59d.cloudapp.net/PinzAdminService.svc/service" />
+      <soap12:address location="http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/PinzAdminService.svc/PinzAdminService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>http://5a109c6b4fcb4234a03b4dad3883a59d.cloudapp.net/PinzAdminService.svc/service</wsa10:Address>
+        <wsa10:Address>http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/PinzAdminService.svc/PinzAdminService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
           <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
             <X509Data>

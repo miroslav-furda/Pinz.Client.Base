@@ -219,7 +219,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsdl:import namespace="http://pinzonline.com/services" location="http://5a109c6b4fcb4234a03b4dad3883a59d.cloudapp.net/AuthorisationService.svc?wsdl=wsdl0" />
+  <wsdl:import namespace="http://pinzonline.com/services" location="http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/AuthorisationService.svc?wsdl=wsdl0" />
   <wsdl:types />
   <wsdl:binding name="WSHttpBinding_IAuthorisationService" type="i0:IAuthorisationService">
     <wsp:PolicyReference URI="#WSHttpBinding_IAuthorisationService_policy" />
@@ -260,9 +260,9 @@
   </wsdl:binding>
   <wsdl:service name="AuthorisationService">
     <wsdl:port name="WSHttpBinding_IAuthorisationService" binding="tns:WSHttpBinding_IAuthorisationService">
-      <soap12:address location="http://5a109c6b4fcb4234a03b4dad3883a59d.cloudapp.net/AuthorisationService.svc/service" />
+      <soap12:address location="http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/AuthorisationService.svc/AuthorisationService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>http://5a109c6b4fcb4234a03b4dad3883a59d.cloudapp.net/AuthorisationService.svc/service</wsa10:Address>
+        <wsa10:Address>http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/AuthorisationService.svc/AuthorisationService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
           <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
             <X509Data>

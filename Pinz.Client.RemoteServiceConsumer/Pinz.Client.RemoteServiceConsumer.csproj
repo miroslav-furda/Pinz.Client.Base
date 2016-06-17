@@ -38,6 +38,14 @@
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
@@ -116,15 +124,15 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Pinz.Client.RemoteServiceConsumer.nuspec" />
-    <None Include="Service References\AdministrationServiceReference\AdministrationService.wsdl" />
-    <None Include="Service References\AdministrationServiceReference\AdministrationService.xsd">
+    <None Include="Service References\AdministrationServiceReference\AdministrationService2.wsdl" />
+    <None Include="Service References\AdministrationServiceReference\AdministrationService21.wsdl" />
+    <None Include="Service References\AdministrationServiceReference\AdministrationService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AdministrationServiceReference\AdministrationService1.wsdl" />
-    <None Include="Service References\AdministrationServiceReference\AdministrationService1.xsd">
+    <None Include="Service References\AdministrationServiceReference\AdministrationService31.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AdministrationServiceReference\AdministrationService2.xsd">
+    <None Include="Service References\AdministrationServiceReference\AdministrationService32.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\AdministrationServiceReference\Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.CompanyDO.datasource">
@@ -139,15 +147,15 @@
     <None Include="Service References\AdministrationServiceReference\Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.UserDO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\AuthorisationServiceReference\AuthorisationService.wsdl" />
-    <None Include="Service References\AuthorisationServiceReference\AuthorisationService.xsd">
+    <None Include="Service References\AuthorisationServiceReference\AuthorisationService2.wsdl" />
+    <None Include="Service References\AuthorisationServiceReference\AuthorisationService21.wsdl" />
+    <None Include="Service References\AuthorisationServiceReference\AuthorisationService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AuthorisationServiceReference\AuthorisationService1.wsdl" />
-    <None Include="Service References\AuthorisationServiceReference\AuthorisationService1.xsd">
+    <None Include="Service References\AuthorisationServiceReference\AuthorisationService31.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AuthorisationServiceReference\AuthorisationService2.xsd">
+    <None Include="Service References\AuthorisationServiceReference\AuthorisationService32.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\AuthorisationServiceReference\Com.Pinz.Client.RemoteServiceConsumer.AuthorisationServiceReference.UserDO.datasource">
@@ -156,14 +164,14 @@
     <None Include="Service References\PinzAdminServiceReference\Com.Pinz.Client.RemoteServiceConsumer.PinzAdminServiceReference.CompanyDO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\PinzAdminServiceReference\PinzAdminService.wsdl" />
-    <None Include="Service References\PinzAdminServiceReference\PinzAdminService.xsd">
+    <None Include="Service References\PinzAdminServiceReference\PinzAdminService1.wsdl" />
+    <None Include="Service References\PinzAdminServiceReference\PinzAdminService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\PinzAdminServiceReference\PinzAdminService1.xsd">
+    <None Include="Service References\PinzAdminServiceReference\PinzAdminService31.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\PinzAdminServiceReference\PinzAdminService2.xsd">
+    <None Include="Service References\PinzAdminServiceReference\PinzAdminService32.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\TaskServiceReference\Com.Pinz.Client.RemoteServiceConsumer.TaskServiceReference.CategoryDO.datasource">
@@ -175,18 +183,18 @@
     <None Include="Service References\TaskServiceReference\Com.Pinz.Client.RemoteServiceConsumer.TaskServiceReference.TaskDO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\TaskServiceReference\TaskService.wsdl" />
-    <None Include="Service References\TaskServiceReference\TaskService.xsd">
+    <None Include="Service References\TaskServiceReference\TaskService2.wsdl" />
+    <None Include="Service References\TaskServiceReference\TaskService21.wsdl" />
+    <None Include="Service References\TaskServiceReference\TaskService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\TaskServiceReference\TaskService1.wsdl" />
-    <None Include="Service References\TaskServiceReference\TaskService1.xsd">
+    <None Include="Service References\TaskServiceReference\TaskService41.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\TaskServiceReference\TaskService2.xsd">
+    <None Include="Service References\TaskServiceReference\TaskService42.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\TaskServiceReference\TaskService3.xsd">
+    <None Include="Service References\TaskServiceReference\TaskService43.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -198,9 +206,6 @@
     <WCFMetadataStorage Include="Service References\AuthorisationServiceReference\" />
     <WCFMetadataStorage Include="Service References\PinzAdminServiceReference\" />
     <WCFMetadataStorage Include="Service References\TaskServiceReference\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\AdministrationServiceReference\AdministrationService.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\AdministrationServiceReference\configuration91.svcinfo" />
@@ -215,9 +220,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\AuthorisationServiceReference\AuthorisationService.disco" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Service References\AuthorisationServiceReference\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
@@ -230,9 +232,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\PinzAdminServiceReference\PinzAdminService.disco" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Service References\PinzAdminServiceReference\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
@@ -243,9 +242,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\TaskServiceReference\TaskService.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\TaskServiceReference\configuration91.svcinfo" />
@@ -270,6 +266,18 @@
       <Project>{64bbc1dc-7f3b-4bbf-871d-fabfd6ea3721}</Project>
       <Name>Pinz.Client.Commons</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AdministrationServiceReference\AdministrationService1.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AuthorisationServiceReference\AuthorisationService1.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PinzAdminServiceReference\PinzAdminService1.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TaskServiceReference\TaskService1.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

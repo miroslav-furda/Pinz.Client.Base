@@ -41,8 +41,8 @@ namespace Pinz.Client.RemoteServiceConsumer.IntegrationTest.Administration
             authorisationService = kernel.Get<IAuthorisationRemoteService>();
 
             credentials = kernel.Get<UserNameClientCredentials>();
-            credentials.UserName = "test@test.com";
-            credentials.Password = "testtest";
+            credentials.UserName = TestUserCredentials.UserName;
+            credentials.Password = TestUserCredentials.Password;
             credentials.UpdateCredentialsForAllFactories();
 
             Company company1 = new Company()

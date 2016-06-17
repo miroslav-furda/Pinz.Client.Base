@@ -10,7 +10,7 @@ using System;
 namespace Com.Pinz.Client.RemoteServiceConsumer.Authorisation
 {
     [TestClass]
-    class AuthorisationServiceTestFixture
+    public class AuthorisationServiceTestFixture
     {
         private IPinzAdminRemoteService pinzService;
         private IAdministrationRemoteService service;
@@ -61,7 +61,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Authorisation
             user = service.CreateUser(user);
         }
 
-        [TestCleanup]
+        [TestCleanup()]
         public void UnloadKernel()
         {
             pinzService.DeleteCompany(company);

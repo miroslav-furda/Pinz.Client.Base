@@ -69,7 +69,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.TaskService
             service.AddUserToProject(user, project, true);
         }
 
-        [TestCleanup]
+        [TestCleanup()]
         public void UnloadKernel()
         {
             pinzService.DeleteCompany(company);

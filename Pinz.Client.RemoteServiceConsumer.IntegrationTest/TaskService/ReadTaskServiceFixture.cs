@@ -70,11 +70,11 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.TaskService
             category = taskService.CreateCategoryInProject(project);
         }
 
-        [TestCleanup]
+        [TestCleanup()]
         public void UnloadKernel()
         {
-            credentials.UserName = "test@test.com";
-            credentials.Password = "test";
+            credentials.UserName = TestUserCredentials.UserName;
+            credentials.Password = TestUserCredentials.Password;
             credentials.UpdateCredentialsForAllFactories();
 
             pinzService.DeleteCompany(company);

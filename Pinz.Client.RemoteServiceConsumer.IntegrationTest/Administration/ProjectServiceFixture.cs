@@ -43,7 +43,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             company = pinzService.CreateCompany(company1);
         }
 
-        [TestCleanup]
+        [TestCleanup()]
         public void UnloadKernel()
         {
             pinzService.DeleteCompany(company);

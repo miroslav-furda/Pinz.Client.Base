@@ -19,6 +19,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
         private IAdministrationRemoteService service;
         private IKernel kernel;
         private Company company;
+        private UserNameClientCredentials credentials;
 
         [TestInitialize]
         public void InitializeKernel()
@@ -31,7 +32,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             service = kernel.Get<IAdministrationRemoteService>();
             pinzService = kernel.Get<IPinzAdminRemoteService>();
 
-            UserNameClientCredentials credentials = kernel.Get<UserNameClientCredentials>();
+            credentials = kernel.Get<UserNameClientCredentials>();
             credentials.UserName = TestUserCredentials.UserName;
             credentials.Password = TestUserCredentials.Password;
             credentials.UpdateCredentialsForAllFactories();
@@ -64,6 +65,22 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             service.CreateProject(project);
 
             Assert.IsNotNull(project.ProjectId);
+        }
+
+        [TestMethod]
+        public void ReadAllProjects()
+        {
+            Assert.AreNotEqual(Guid.Empty, company.CompanyId);
+
+            Project project = new Project();
+            project.CompanyId = company.CompanyId;
+            project.Name = "My test project";
+            project.Description = "Descirption";
+            service.CreateProject(project);
+            Assert.IsNotNull(project.ProjectId);
+
+            List<Project> projects = service.ReadProjectsForCompany(company);
+            Assert.AreEqual(1, projects.Count);
         }
 
         [TestMethod]

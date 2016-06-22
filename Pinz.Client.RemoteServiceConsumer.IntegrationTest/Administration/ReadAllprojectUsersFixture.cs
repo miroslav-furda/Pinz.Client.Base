@@ -88,6 +88,7 @@ namespace Pinz.Client.RemoteServiceConsumer.IntegrationTest.Administration
             List<ProjectUser> puList = service.ReadAllProjectUsersInProject(project);
 
             Assert.AreEqual(1, puList.Count());
+            Assert.AreNotEqual(puList[0].UserId, Guid.Empty);
         }
     }
 }

@@ -297,9 +297,9 @@
   </wsdl:binding>
   <wsdl:service name="PinzAdminService">
     <wsdl:port name="WSHttpBinding_IPinzAdminService" binding="tns:WSHttpBinding_IPinzAdminService">
-      <soap12:address location="http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/PinzAdminService.svc/PinzAdminService" />
+      <soap12:address location="http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/PinzAdminService.svc/service" />
       <wsa10:EndpointReference>
-        <wsa10:Address>http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/PinzAdminService.svc/PinzAdminService</wsa10:Address>
+        <wsa10:Address>http://fd3eeff9c25248d0ab04261c0d5ef0b1.cloudapp.net/PinzAdminService.svc/service</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
           <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
             <X509Data>

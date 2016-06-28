@@ -5,6 +5,7 @@ using Ninject;
 using Ninject.Extensions.Interception;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Com.Pinz.Client.RemoteServiceConsumer.Infrastructure
 {
@@ -21,6 +22,14 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Infrastructure
             this.indicator = indicator;
         }
 
+        private static async Task<object> InterceptAsync(Task<object> originalTask)
+        {
+            // Await for the original task to complete
+            object retVal = await originalTask;
+            return retVal;
+        }
+
+
         public void Intercept(IInvocation invocation)
         {
             lock (lockThis)
@@ -33,6 +42,13 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Infrastructure
                 try
                 {
                     invocation.Proceed();
+                    if(invocation.ReturnValue is Task)
+                    {
+                        Task task = invocation.ReturnValue as Task;
+                        task.Wait();
+                        //task.
+                        //invocation.ReturnValue = InterceptAsync((Task)invocation.ReturnValue);
+                    }
                     LogAfter(invocation);
                 }
                 catch (Exception ex)

@@ -70,7 +70,9 @@
     <Compile Include="DomainModel\User.cs" />
     <Compile Include="Model\ApplicationGlobalModel.cs" />
     <Compile Include="Model\TaskFilter.cs" />
+    <Compile Include="Prism\AwaitableDelegateCommand.cs" />
     <Compile Include="Prism\BindableValidationBase.cs" />
+    <Compile Include="Prism\IAsyncCommand.cs" />
     <Compile Include="Wpf\Extensions\PasswordBoxAssistant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

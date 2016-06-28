@@ -3,6 +3,8 @@ using Com.Pinz.Client.DomainModel;
 using Com.Pinz.Client.RemoteServiceConsumer.Service;
 using Ninject;
 using System.ServiceModel;
+using System;
+using System.Threading.Tasks;
 
 namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
 {
@@ -37,6 +39,12 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
             return mapper.Map<User>(user);
         }
 
+        public async Task<User> ReadUserByEmailAsync(string email)
+        {
+            AuthorisationServiceReference.UserDO user = await channel.ReadUserByEmailAsync(email);
+            return mapper.Map<User>(user);
+        }
+
         public override void OpenChannel()
         {
             channel = clientFactory.CreateChannel();
@@ -46,6 +54,5 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
         {
             CloseOrAbortServiceChannel(channel as ICommunicationObject);
         }
-
     }
 }

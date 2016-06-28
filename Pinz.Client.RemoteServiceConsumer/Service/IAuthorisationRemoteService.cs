@@ -1,4 +1,5 @@
 ﻿using Com.Pinz.Client.DomainModel;
+using System.Threading.Tasks;
 
 namespace Com.Pinz.Client.RemoteServiceConsumer.Service
 {
@@ -9,5 +10,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Service
         bool IsUserComapnyAdmin(User user);
 
         User ReadUserByEmail(string email);
+
+        Task<User> ReadUserByEmailAsync(string email);
     }
 }

@@ -88,6 +88,14 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Authorisation
         }
 
         [TestMethod]
+        public async void ReadUserByEmailAsync()
+        {
+            User rUser = await authorisationService.ReadUserByEmailAsync(user.EMail);
+
+            Assert.AreEqual(user.UserId, rUser.UserId);
+        }
+
+        [TestMethod]
         public void IsUserProjectAdmin_False()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);

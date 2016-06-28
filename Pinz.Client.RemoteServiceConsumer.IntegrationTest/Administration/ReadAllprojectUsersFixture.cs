@@ -66,13 +66,15 @@ namespace Pinz.Client.RemoteServiceConsumer.IntegrationTest.Administration
                 CompanyId = company.CompanyId
             };
             user = service.CreateUser(user);
+
+            service.AddUserToProject(user, project, true);
         }
 
-        [TestCleanup]
+        [TestCleanup()]
         public void UnloadKernel()
         {
-            credentials.UserName = "test@test.com";
-            credentials.Password = "testtest";
+            credentials.UserName = TestUserCredentials.UserName;
+            credentials.Password = TestUserCredentials.Password;
             credentials.UpdateCredentialsForAllFactories();
 
             pinzService.DeleteCompany(company);
@@ -86,6 +88,7 @@ namespace Pinz.Client.RemoteServiceConsumer.IntegrationTest.Administration
             List<ProjectUser> puList = service.ReadAllProjectUsersInProject(project);
 
             Assert.AreEqual(1, puList.Count());
+            Assert.AreNotEqual(puList[0].UserId, Guid.Empty);
         }
     }
 }

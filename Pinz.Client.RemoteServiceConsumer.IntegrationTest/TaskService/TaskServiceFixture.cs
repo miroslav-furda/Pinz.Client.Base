@@ -70,7 +70,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.TaskService
             category = taskService.CreateCategoryInProject(project);
         }
 
-        [TestCleanup]
+        [TestCleanup()]
         public void UnloadKernel()
         {
             pinzService.DeleteCompany(company);

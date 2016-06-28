@@ -41,13 +41,16 @@
   </xs:complexType>
   <xs:element name="ArrayOfProjectUserDO" nillable="true" type="tns:ArrayOfProjectUserDO" />
   <xs:complexType name="ProjectUserDO">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:UserDO">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="IsProjectAdmin" type="xs:boolean" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CompanyId" type="ser:guid" />
+      <xs:element minOccurs="0" name="EMail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FamilyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsCompanyAdmin" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsPinzSuperAdmin" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsProjectAdmin" type="xs:boolean" />
+      <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+    </xs:sequence>
   </xs:complexType>
   <xs:element name="ProjectUserDO" nillable="true" type="tns:ProjectUserDO" />
   <xs:complexType name="CompanyDO">

@@ -17,7 +17,6 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UserDO", Namespace="http://schemas.datacontract.org/2004/07/Com.Pinz.Server.DataAccess.Model")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.ProjectUserDO))]
     public partial class UserDO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -157,29 +156,6 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ProjectUserDO", Namespace="http://schemas.datacontract.org/2004/07/Com.Pinz.Server.DataAccess.Model")]
-    [System.SerializableAttribute()]
-    public partial class ProjectUserDO : Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference.UserDO {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool IsProjectAdminField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsProjectAdmin {
-            get {
-                return this.IsProjectAdminField;
-            }
-            set {
-                if ((this.IsProjectAdminField.Equals(value) != true)) {
-                    this.IsProjectAdminField = value;
-                    this.RaisePropertyChanged("IsProjectAdmin");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ProjectDO", Namespace="http://schemas.datacontract.org/2004/07/Com.Pinz.Server.DataAccess.Model")]
     [System.SerializableAttribute()]
     public partial class ProjectDO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -257,6 +233,163 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.AdministrationServiceReference {
                 if ((this.ProjectIdField.Equals(value) != true)) {
                     this.ProjectIdField = value;
                     this.RaisePropertyChanged("ProjectId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ProjectUserDO", Namespace="http://schemas.datacontract.org/2004/07/Com.Pinz.Server.DataAccess.Model")]
+    [System.SerializableAttribute()]
+    public partial class ProjectUserDO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid CompanyIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EMailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FamilyNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FirstNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsCompanyAdminField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsPinzSuperAdminField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsProjectAdminField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid UserIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid CompanyId {
+            get {
+                return this.CompanyIdField;
+            }
+            set {
+                if ((this.CompanyIdField.Equals(value) != true)) {
+                    this.CompanyIdField = value;
+                    this.RaisePropertyChanged("CompanyId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EMail {
+            get {
+                return this.EMailField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EMailField, value) != true)) {
+                    this.EMailField = value;
+                    this.RaisePropertyChanged("EMail");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FamilyName {
+            get {
+                return this.FamilyNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FamilyNameField, value) != true)) {
+                    this.FamilyNameField = value;
+                    this.RaisePropertyChanged("FamilyName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FirstName {
+            get {
+                return this.FirstNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FirstNameField, value) != true)) {
+                    this.FirstNameField = value;
+                    this.RaisePropertyChanged("FirstName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsCompanyAdmin {
+            get {
+                return this.IsCompanyAdminField;
+            }
+            set {
+                if ((this.IsCompanyAdminField.Equals(value) != true)) {
+                    this.IsCompanyAdminField = value;
+                    this.RaisePropertyChanged("IsCompanyAdmin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsPinzSuperAdmin {
+            get {
+                return this.IsPinzSuperAdminField;
+            }
+            set {
+                if ((this.IsPinzSuperAdminField.Equals(value) != true)) {
+                    this.IsPinzSuperAdminField = value;
+                    this.RaisePropertyChanged("IsPinzSuperAdmin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsProjectAdmin {
+            get {
+                return this.IsProjectAdminField;
+            }
+            set {
+                if ((this.IsProjectAdminField.Equals(value) != true)) {
+                    this.IsProjectAdminField = value;
+                    this.RaisePropertyChanged("IsProjectAdmin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid UserId {
+            get {
+                return this.UserIdField;
+            }
+            set {
+                if ((this.UserIdField.Equals(value) != true)) {
+                    this.UserIdField = value;
+                    this.RaisePropertyChanged("UserId");
                 }
             }
         }

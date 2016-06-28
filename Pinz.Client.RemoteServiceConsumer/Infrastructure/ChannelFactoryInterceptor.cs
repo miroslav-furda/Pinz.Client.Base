@@ -5,6 +5,8 @@ using Ninject;
 using Ninject.Extensions.Interception;
 using System;
 using System.Linq;
+using System.Reflection;
+using System.ServiceModel;
 using System.Threading.Tasks;
 
 namespace Com.Pinz.Client.RemoteServiceConsumer.Infrastructure
@@ -12,6 +14,9 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Infrastructure
     public class ChannelFactoryInterceptor : IInterceptor
     {
         private static readonly ILog Log = LogManager.GetLogger<ChannelFactoryInterceptor>();
+        private static readonly MethodInfo handleAsyncMethodInfo =
+            typeof(ChannelFactoryInterceptor).GetMethod("HandleAsyncWithResult", BindingFlags.Instance | BindingFlags.NonPublic);
+
 
         private IServiceRunningIndicator indicator;
         private System.Object lockThis = new System.Object();
@@ -21,14 +26,6 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Infrastructure
         {
             this.indicator = indicator;
         }
-
-        private static async Task<object> InterceptAsync(Task<object> originalTask)
-        {
-            // Await for the original task to complete
-            object retVal = await originalTask;
-            return retVal;
-        }
-
 
         public void Intercept(IInvocation invocation)
         {
@@ -41,26 +38,58 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Infrastructure
 
                 try
                 {
-                    invocation.Proceed();
-                    if(invocation.ReturnValue is Task)
+                    var delegateType = GetDelegateType(invocation);
+                    if (delegateType == MethodType.Synchronous)
                     {
-                        Task task = invocation.ReturnValue as Task;
-                        task.Wait();
-                        //task.
-                        //invocation.ReturnValue = InterceptAsync((Task)invocation.ReturnValue);
+                        invocation.Proceed();
+                        LogAfter(invocation);
+                        serviceBase.CloseChannel();
+                        indicator.IsServiceRunning = false;
+                    }
+                    if (delegateType == MethodType.AsyncAction)
+                    {
+                        invocation.Proceed();
+                        invocation.ReturnValue = HandleAsync((Task)invocation.ReturnValue, invocation);
+                    }
+                    if (delegateType == MethodType.AsyncFunction)
+                    {
+                        invocation.Proceed();
+                        ExecuteHandleAsyncWithResultUsingReflection(invocation);
                     }
                     LogAfter(invocation);
                 }
-                catch (Exception ex)
-                {
-                    Log.Fatal("Falied to execute call ! ", ex);
-                    throw ex;
-                }
-                finally
+                catch (FaultException ex)
                 {
                     serviceBase.CloseChannel();
                     indicator.IsServiceRunning = false;
+                    if (ex.InnerException != null)
+                    {
+                        Log.Fatal("Falied to execute call ! ", ex.InnerException);
+                        throw ex.InnerException;
+                    }
+                    Log.Fatal("Falied to execute call ! ", ex);
+                    throw;
                 }
+                catch (Exception ex2)
+                {
+                    serviceBase.CloseChannel();
+                    indicator.IsServiceRunning = false;
+                    Log.Fatal("Falied to execute call ! ", ex2);
+                    throw;
+                }
+                /*
+
+                 catch (Exception ex)
+                 {
+                     Log.Fatal("Falied to execute call ! ", ex);
+                     throw ex;
+                 }
+                 finally
+                 {
+                     serviceBase.CloseChannel();
+                     indicator.IsServiceRunning = false;
+                 }
+                 */
             }
         }
 
@@ -90,6 +119,88 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Infrastructure
 
             //log method called
             Log.Debug(message);
+        }
+
+        private void ExecuteHandleAsyncWithResultUsingReflection(IInvocation invocation)
+        {
+            var resultType = invocation.Request.Method.ReturnType.GetGenericArguments()[0];
+            var mi = handleAsyncMethodInfo.MakeGenericMethod(resultType);
+            invocation.ReturnValue = mi.Invoke(this, new[] { invocation.ReturnValue, invocation });
+        }
+
+        private async Task HandleAsync(Task task, IInvocation invocation)
+        {
+            ServiceBase serviceBase = invocation.Request.Target as ServiceBase;
+            try
+            {
+                await task;
+                LogAfter(invocation);
+            }
+            catch (FaultException ex)
+            {
+                serviceBase.CloseChannel();
+                indicator.IsServiceRunning = false;
+                if (ex.InnerException != null)
+                {
+                    Log.Fatal("Falied to execute call ! ", ex.InnerException);
+                    throw ex.InnerException;
+                }
+                Log.Fatal("Falied to execute call ! ", ex);
+                throw;
+            }
+            catch (Exception ex2)
+            {
+                serviceBase.CloseChannel();
+                indicator.IsServiceRunning = false;
+                Log.Fatal("Falied to execute call ! ", ex2);
+                throw;
+            }
+        }
+
+        private async Task<T> HandleAsyncWithResult<T>(Task<T> task, IInvocation invocation)
+        {
+            ServiceBase serviceBase = invocation.Request.Target as ServiceBase;
+            try
+            {
+                T value = await task;
+                return value;
+            }
+            catch (FaultException ex)
+            {
+                serviceBase.CloseChannel();
+                indicator.IsServiceRunning = false;
+                if (ex.InnerException != null)
+                {
+                    Log.Fatal("Falied to execute call ! ", ex.InnerException);
+                    throw ex.InnerException;
+                }
+                Log.Fatal("Falied to execute call ! ", ex);
+                throw;
+            }
+            catch (Exception ex2)
+            {
+                serviceBase.CloseChannel();
+                indicator.IsServiceRunning = false;
+                Log.Fatal("Falied to execute call ! ", ex2);
+                throw;
+            }
+        }
+
+        private MethodType GetDelegateType(IInvocation invocation)
+        {
+            var returnType = invocation.Request.Method.ReturnType;
+            if (returnType == typeof(Task))
+                return MethodType.AsyncAction;
+            if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Task<>))
+                return MethodType.AsyncFunction;
+            return MethodType.Synchronous;
+        }
+
+        private enum MethodType
+        {
+            Synchronous,
+            AsyncAction,
+            AsyncFunction
         }
     }
 }

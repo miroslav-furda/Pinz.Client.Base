@@ -90,9 +90,9 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Authorisation
         [TestMethod]
         public async System.Threading.Tasks.Task ReadUserByEmailAsync()
         {
-            User rUser = await authorisationService.ReadUserByEmailAsync("me@gmail.com");
+            User rUser = await authorisationService.ReadUserByEmailAsync(user.EMail);
 
-            Assert.IsNotNull(rUser.UserId);
+            Assert.AreEqual(user.UserId, rUser.UserId);
         }
 
         [TestMethod]

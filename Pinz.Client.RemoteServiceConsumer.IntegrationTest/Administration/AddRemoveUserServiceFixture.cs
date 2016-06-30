@@ -25,7 +25,13 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
         private UserNameClientCredentials credentials;
 
         [TestInitialize]
-        public void InitializeKernel()
+        public void InitTest()
+        {
+            System.Threading.Tasks.Task res = InitializeKernelAsync();
+            res.Wait();
+        }
+
+        public async System.Threading.Tasks.Task InitializeKernelAsync()
         {
             kernel = new StandardKernel();
             kernel.Load(new ServiceConsumerNinjectModule());
@@ -46,7 +52,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             {
                 Name = "Pinz Online"
             };
-            company = pinzService.CreateCompany(company1);
+            company = await pinzService.CreateCompanyAsync(company1);
 
             project = new Project()
             {
@@ -54,7 +60,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
                 Name = "My test project",
                 Description = "Description"
             };
-            service.CreateProject(project);
+            await service.CreateProjectAsync(project);
 
             user = new User()
             {
@@ -62,7 +68,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
                 IsCompanyAdmin = true,
                 CompanyId = company.CompanyId
             };
-            user = service.CreateUser(user);
+            user = await service.CreateUserAsync(user);
         }
 
         [TestCleanup()]
@@ -72,44 +78,45 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             credentials.Password = TestUserCredentials.Password;
             credentials.UpdateCredentialsForAllFactories();
 
-            pinzService.DeleteCompany(company);
+            System.Threading.Tasks.Task res = pinzService.DeleteCompanyAsync(company);
+            res.Wait();
 
             kernel.Dispose();
         }
 
         [TestMethod]
-        public void AddUser()
+        public async System.Threading.Tasks.Task AddUser()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
-            service.AddUserToProject(user, project, true);
+            await service.AddUserToProjectAsync(user, project, true);
 
             credentials.UserName = user.EMail;
             credentials.Password = "test";
             credentials.UpdateCredentialsForAllFactories();
-            List<Project> projects = taskService.ReadAllProjectsForCurrentUser();
+            List<Project> projects = await taskService.ReadAllProjectsForCurrentUserAsync();
             Assert.AreEqual(1, projects.Count());
             Assert.AreEqual(project.ProjectId, projects[0].ProjectId);
         }
 
         [TestMethod]
-        public void RemoveUser()
+        public async System.Threading.Tasks.Task RemoveUser()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
-            service.AddUserToProject(user, project, true);
+            await service.AddUserToProjectAsync(user, project, true);
 
             credentials.UserName = user.EMail;
             credentials.Password = "test";
             credentials.UpdateCredentialsForAllFactories();
 
-            List<Project> projects = taskService.ReadAllProjectsForCurrentUser();
+            List<Project> projects = await taskService.ReadAllProjectsForCurrentUserAsync();
             Assert.AreEqual(1, projects.Count());
             Assert.AreEqual(project.ProjectId, projects[0].ProjectId);
 
-            service.RemoveUserFromProject(user, project);
+            await service.RemoveUserFromProjectAsync(user, project);
 
-            List<Project> projects2 = taskService.ReadAllProjectsForCurrentUser();
+            List<Project> projects2 = await taskService.ReadAllProjectsForCurrentUserAsync();
             Assert.AreEqual(0, projects2.Count());
 
         }

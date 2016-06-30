@@ -3,6 +3,7 @@ using Com.Pinz.Client.DomainModel;
 using Com.Pinz.Client.RemoteServiceConsumer.Service;
 using Ninject;
 using System.ServiceModel;
+using Threading = System.Threading.Tasks;
 
 namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
 {
@@ -30,22 +31,22 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
             CloseOrAbortServiceChannel(channel as ICommunicationObject);
         }
 
-        public Company CreateCompany(Company company)
+        public async Threading.Task<Company> CreateCompanyAsync(Company company)
         {
             PinzAdminServiceReference.CompanyDO rCompIn = mapper.Map<PinzAdminServiceReference.CompanyDO>(company);
-            PinzAdminServiceReference.CompanyDO rCompany = channel.CreateCompany(rCompIn);
+            PinzAdminServiceReference.CompanyDO rCompany = await channel.CreateCompanyAsync(rCompIn);
             mapper.Map(rCompany, company);
             return company;
         }
 
-        public void UpdateCompany(Company company)
+        public async Threading.Task UpdateCompanyAsync(Company company)
         {
-            channel.UpdateCompany(mapper.Map<PinzAdminServiceReference.CompanyDO>(company));
+            await channel.UpdateCompanyAsync(mapper.Map<PinzAdminServiceReference.CompanyDO>(company));
         }
 
-        public void DeleteCompany(Company company)
+        public async Threading.Task DeleteCompanyAsync(Company company)
         {
-            channel.DeleteCompany(mapper.Map<PinzAdminServiceReference.CompanyDO>(company));
+            await channel.DeleteCompanyAsync(mapper.Map<PinzAdminServiceReference.CompanyDO>(company));
         }
     }
 }

@@ -20,7 +20,13 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.PinzAdmin
         private Company company;
 
         [TestInitialize]
-        public void InitializeKernel()
+        public void InitTest()
+        {
+            System.Threading.Tasks.Task res = InitializeKernelAsync();
+            res.Wait();
+        }
+
+        public async System.Threading.Tasks.Task InitializeKernelAsync()
         {
             kernel = new StandardKernel();
             kernel.Load(new ServiceConsumerNinjectModule());
@@ -39,13 +45,14 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.PinzAdmin
             {
                 Name = "Pinz Online"
             };
-            company = pinzService.CreateCompany(company1);
+            company =  await pinzService.CreateCompanyAsync(company1);
         }
 
         [TestCleanup()]
         public void UnloadKernel()
         {
-            pinzService.DeleteCompany(company);
+            var res = pinzService.DeleteCompanyAsync(company);
+            res.Wait();
 
             kernel.Dispose();
         }
@@ -58,36 +65,36 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.PinzAdmin
 
         [TestMethod]
         [ExpectedException(typeof(FaultException<ExceptionDetail>), "Validation failed.")]
-        public void CreateCompany_ValidationFailed()
+        public async System.Threading.Tasks.Task CreateCompany_ValidationFailed()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
             Company company2 = new Company();
 
-            pinzService.CreateCompany(company2);
+            await pinzService.CreateCompanyAsync(company2);
         }
 
         [TestMethod]
-        public void UpdateCompany()
+        public async System.Threading.Tasks.Task UpdateCompany()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
             company.Name = "New name";
-            pinzService.UpdateCompany(company);
+            await pinzService.UpdateCompanyAsync(company);
 
-            Company company2 = adminService.ReadCompanyById(company.CompanyId);
+            Company company2 = await adminService.ReadCompanyByIdAsync(company.CompanyId);
             Assert.AreEqual(company.Name, company2.Name);
         }
 
         [TestMethod]
         [ExpectedException(typeof(FaultException<ExceptionDetail>), "Validation failed.")]
-        public void UpdateCompany_ValidationFailed()
+        public async System.Threading.Tasks.Task UpdateCompany_ValidationFailed()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
             company.Name = null;
 
-            pinzService.UpdateCompany(company);
+            await pinzService.UpdateCompanyAsync(company);
         }
     }
 }

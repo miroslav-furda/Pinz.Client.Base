@@ -5,11 +5,9 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Service
 {
     public interface IAuthorisationRemoteService
     {
-        bool IsUserProjectAdmin(User user, Project project);
+        Task<bool> IsUserProjectAdminAsync(User user, Project project);
 
-        bool IsUserComapnyAdmin(User user);
-
-        User ReadUserByEmail(string email);
+        Task<bool> IsUserComapnyAdminAsync(User user);
 
         Task<User> ReadUserByEmailAsync(string email);
     }

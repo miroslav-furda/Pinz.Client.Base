@@ -20,8 +20,15 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Authorisation
         private Project project;
         private User user;
 
+
         [TestInitialize]
-        public void InitializeKernel()
+        public void InitTest()
+        {
+            System.Threading.Tasks.Task res = InitializeKernelAsync();
+            res.Wait();
+        }
+
+        public async System.Threading.Tasks.Task InitializeKernelAsync()
         {
             kernel = new StandardKernel();
             kernel.Load(new ServiceConsumerNinjectModule());
@@ -42,7 +49,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Authorisation
             {
                 Name = "Pinz Online"
             };
-            company = pinzService.CreateCompany(company1);
+            company = await pinzService.CreateCompanyAsync(company1);
 
             project = new Project()
             {
@@ -50,7 +57,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Authorisation
                 Name = "My test project",
                 Description = "Descirption"
             };
-            service.CreateProject(project);
+            await service.CreateProjectAsync(project);
 
             user = new User()
             {
@@ -58,33 +65,26 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Authorisation
                 IsCompanyAdmin = true,
                 CompanyId = company.CompanyId
             };
-            user = service.CreateUser(user);
+            user = await service.CreateUserAsync(user);
         }
 
         [TestCleanup()]
         public void UnloadKernel()
         {
-            pinzService.DeleteCompany(company);
+            var res = pinzService.DeleteCompanyAsync(company);
+            res.Wait();
 
             kernel.Dispose();
         }
 
         [TestMethod]
-        public void IsUserCompanyAdmin()
+        public async System.Threading.Tasks.Task IsUserCompanyAdmin()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
-            bool isCompanyAdmin = authorisationService.IsUserComapnyAdmin(user);
+            bool isCompanyAdmin = await authorisationService.IsUserComapnyAdminAsync(user);
 
             Assert.IsTrue(isCompanyAdmin);
-        }
-
-        [TestMethod]
-        public void ReadUserByEmail()
-        {
-            User rUser = authorisationService.ReadUserByEmail(user.EMail);
-
-            Assert.AreEqual(user.UserId, rUser.UserId);
         }
 
         [TestMethod]
@@ -96,22 +96,22 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Authorisation
         }
 
         [TestMethod]
-        public void IsUserProjectAdmin_False()
+        public async System.Threading.Tasks.Task IsUserProjectAdmin_False()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
-            bool isCompanyAdmin = authorisationService.IsUserProjectAdmin(user, project);
+            bool isCompanyAdmin = await authorisationService.IsUserProjectAdminAsync(user, project);
 
             Assert.IsFalse(isCompanyAdmin);
         }
 
         [TestMethod]
-        public void IsUserProjectAdmin_True()
+        public async System.Threading.Tasks.Task IsUserProjectAdmin_True()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
-            service.AddUserToProject(user, project, true);
+            await service.AddUserToProjectAsync(user, project, true);
 
-            bool isCompanyAdmin = authorisationService.IsUserProjectAdmin(user, project);
+            bool isCompanyAdmin = await authorisationService.IsUserProjectAdminAsync(user, project);
 
             Assert.IsTrue(isCompanyAdmin);
         }

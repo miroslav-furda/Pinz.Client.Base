@@ -23,20 +23,14 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
 
         }
         
-        public bool IsUserComapnyAdmin(User user)
+        public async Task<bool> IsUserComapnyAdminAsync(User user)
         {
-            return channel.IsUserComapnyAdmin(user.UserId);
+            return await channel.IsUserComapnyAdminAsync(user.UserId);
         }
 
-        public bool IsUserProjectAdmin(User user, Project project)
+        public async Task<bool> IsUserProjectAdminAsync(User user, Project project)
         {
-            return channel.IsUserProjectAdmin(user.UserId, project.ProjectId);
-        }
-
-        public User ReadUserByEmail(string email)
-        {
-            AuthorisationServiceReference.UserDO user = channel.ReadUserByEmail(email);
-            return mapper.Map<User>(user);
+            return await channel.IsUserProjectAdminAsync(user.UserId, project.ProjectId);
         }
 
         public async Task<User> ReadUserByEmailAsync(string email)

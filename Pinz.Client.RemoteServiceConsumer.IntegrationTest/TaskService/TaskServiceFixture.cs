@@ -25,7 +25,14 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.TaskService
         private IAuthorisationRemoteService authorisationService;
 
         [TestInitialize]
-        public void InitializeKernel()
+        public void InitTest()
+        {
+            System.Threading.Tasks.Task res = InitializeKernelAsync();
+            res.Wait();
+        }
+
+
+        public async System.Threading.Tasks.Task InitializeKernelAsync()
         {
             kernel = new StandardKernel();
             kernel.Load(new ServiceConsumerNinjectModule());
@@ -47,7 +54,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.TaskService
             {
                 Name = "Pinz Online"
             };
-            company = pinzService.CreateCompany(company);
+            company = await pinzService.CreateCompanyAsync(company);
 
             Project project = new Project()
             {
@@ -55,7 +62,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.TaskService
                 Name = "My test project",
                 Description = "Descirption"
             };
-            service.CreateProject(project);
+            await service.CreateProjectAsync(project);
 
             User user = new User()
             {
@@ -63,68 +70,69 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.TaskService
                 IsCompanyAdmin = true,
                 CompanyId = company.CompanyId
             };
-            user = service.CreateUser(user);
+            user = await service.CreateUserAsync(user);
 
-            service.AddUserToProject(user, project, true);
+            await service.AddUserToProjectAsync(user, project, true);
 
-            category = taskService.CreateCategoryInProject(project);
+            category = await taskService.CreateCategoryInProjectAsync(project);
         }
 
         [TestCleanup()]
         public void UnloadKernel()
         {
-            pinzService.DeleteCompany(company);
+            var res = pinzService.DeleteCompanyAsync(company);
+            res.Wait();
 
             kernel.Dispose();
         }
 
         [TestMethod]
-        public void CreateTask()
+        public async System.Threading.Tasks.Task CreateTask()
         {
             Assert.AreNotEqual(Guid.Empty, category.CategoryId);
 
-            Task task = taskService.CreateTaskInCategory(category);
+            Task task = await taskService.CreateTaskInCategoryAsync(category);
 
             Assert.IsNotNull(task.TaskId);
         }
 
         [TestMethod]
-        public void UpdateTask()
+        public async System.Threading.Tasks.Task UpdateTask()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
-            Task task = taskService.CreateTaskInCategory(category);
+            Task task = await taskService.CreateTaskInCategoryAsync(category);
             Assert.IsNotNull(task.TaskId);
 
             task.TaskName = "New name";
-            taskService.UpdateTask(task);
+            await taskService.UpdateTaskAsync(task);
 
-            List<Task> tasks = taskService.ReadAllTasksByCategory(category);
+            List<Task> tasks = await taskService.ReadAllTasksByCategoryAsync(category);
             Assert.AreEqual(1, tasks.Count());
             Assert.AreEqual(task.TaskName, tasks[0].TaskName);
         }
 
         [TestMethod]
         [ExpectedException(typeof(FaultException<ExceptionDetail>), "Validation failed.")]
-        public void UpdateTask_ValidationFailed()
+        public async System.Threading.Tasks.Task UpdateTask_ValidationFailed()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
-            Task task = taskService.CreateTaskInCategory(category);
+            Task task = await taskService.CreateTaskInCategoryAsync(category);
             Assert.IsNotNull(task.TaskId);
 
             task.TaskName = null;
-            taskService.UpdateTask(task);
+            await taskService.UpdateTaskAsync(task);
         }
 
         [TestMethod]
-        public void DeleteTask()
+        public async System.Threading.Tasks.Task DeleteTask()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
-            Task task = taskService.CreateTaskInCategory(category);
+            Task task = await taskService.CreateTaskInCategoryAsync(category);
             Assert.IsNotNull(task.TaskId);
 
-            taskService.DeleteTask(task);
+            await taskService.DeleteTaskAsync(task);
 
-            List<Task> tasks = taskService.ReadAllTasksByCategory(category);
+            List<Task> tasks = await taskService.ReadAllTasksByCategoryAsync(category);
             Assert.AreEqual(0, tasks.Count());
         }
 

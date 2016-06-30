@@ -7,7 +7,7 @@ using Com.Pinz.Client.RemoteServiceConsumer.Service;
 using Com.Pinz.Client.DomainModel;
 using Com.Pinz.Client.RemoteServiceConsumer.Properties;
 using Com.Pinz.DomainModel;
-
+using Threading = System.Threading.Tasks;
 namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
 {
     internal class TaskService : ServiceBase, ITaskRemoteService
@@ -26,34 +26,34 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
             this.clientCredentials = clientCredentials;
         }
 
-        public List<Project> ReadAllProjectsForCurrentUser()
+        public async Threading.Task<List<Project>> ReadAllProjectsForCurrentUserAsync()
         {
-            List<TaskServiceReference.ProjectDO> rProjects = channel.ReadAllProjectsForUserEmail(clientCredentials.UserName);
+            List<TaskServiceReference.ProjectDO> rProjects = await channel.ReadAllProjectsForUserEmailAsync(clientCredentials.UserName);
             List<Project> projectList = mapper.Map<List<TaskServiceReference.ProjectDO>, List<Project>>(rProjects);
             return projectList;
         }
 
-        public List<Category> ReadAllCategoriesByProject(Project project)
+        public async Threading.Task<List<Category>> ReadAllCategoriesByProjectAsync(Project project)
         {
-            List<TaskServiceReference.CategoryDO> rCategories = channel.ReadAllCategoriesByProjectId(project.ProjectId);
+            List<TaskServiceReference.CategoryDO> rCategories = await channel.ReadAllCategoriesByProjectIdAsync(project.ProjectId);
             List<Category> categoryList = mapper.Map<List<TaskServiceReference.CategoryDO>, List<Category>>(rCategories);
             return categoryList;
         }
 
-        public List<Task> ReadAllTasksByCategory(Category category)
+        public async Threading.Task<List<Task>> ReadAllTasksByCategoryAsync(Category category)
         {
-            List<TaskServiceReference.TaskDO> rTasks = channel.ReadAllTasksByCategoryId(category.CategoryId);
+            List<TaskServiceReference.TaskDO> rTasks = await channel.ReadAllTasksByCategoryIdAsync(category.CategoryId);
             List<Task> taskList = mapper.Map<List<TaskServiceReference.TaskDO>, List<Task>>(rTasks);
             return taskList;
         }
 
-        public void MoveTaskToCategory(Task task, Category category)
+        public async Threading.Task MoveTaskToCategoryAsync(Task task, Category category)
         {
             task.CategoryId = category.CategoryId;
-            UpdateTask(task);
+            await UpdateTaskAsync(task);
         }
 
-        public void ChangeTaskStatus(Task task, TaskStatus newStatus)
+        public async Threading.Task ChangeTaskStatusAsync(Task task, TaskStatus newStatus)
         {
             switch (newStatus)
             {
@@ -77,38 +77,38 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
                     task.Status = newStatus;
                     break;
             }
-            UpdateTask(task);
+            await UpdateTaskAsync(task);
         }
 
        
 
         #region Category CUD
-        public Category CreateCategoryInProject(Project project)
+        public async Threading.Task<Category> CreateCategoryInProjectAsync(Project project)
         {
             Category category = new Category()
             {
                 ProjectId = project.ProjectId,
                 Name = Resources.TaskService_NewCategoryName
             };
-            TaskServiceReference.CategoryDO rCategory = channel.CreateCategory(mapper.Map<TaskServiceReference.CategoryDO>(category));
+            TaskServiceReference.CategoryDO rCategory = await channel.CreateCategoryAsync(mapper.Map<TaskServiceReference.CategoryDO>(category));
             mapper.Map(rCategory, category);
             return category;
         }
 
-        public void DeleteCategory(Category category)
+        public async Threading.Task DeleteCategoryAsync(Category category)
         {
-            channel.DeleteCategory(mapper.Map<TaskServiceReference.CategoryDO>(category));
+            await channel.DeleteCategoryAsync(mapper.Map<TaskServiceReference.CategoryDO>(category));
         }
 
-        public void UpdateCategory(Category category)
+        public async Threading.Task UpdateCategoryAsync(Category category)
         {
-            TaskServiceReference.CategoryDO rCategory = channel.UpdateCategory(mapper.Map<TaskServiceReference.CategoryDO>(category));
+            TaskServiceReference.CategoryDO rCategory = await channel.UpdateCategoryAsync(mapper.Map<TaskServiceReference.CategoryDO>(category));
             mapper.Map(rCategory, category);
         }
         #endregion
 
         #region Task CUD
-        public Task CreateTaskInCategory(Category category)
+        public async Threading.Task<Task> CreateTaskInCategoryAsync(Category category)
         {
             Task task = new Task()
             {
@@ -119,19 +119,19 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
                 ActualWork = 0,
                 Status = TaskStatus.TaskNotStarted
             };
-            TaskServiceReference.TaskDO rTask = channel.CreateTask(mapper.Map<TaskServiceReference.TaskDO>(task), clientCredentials.UserName);
+            TaskServiceReference.TaskDO rTask = await channel.CreateTaskAsync(mapper.Map<TaskServiceReference.TaskDO>(task), clientCredentials.UserName);
             mapper.Map(rTask, task);
             return task;
         }
 
-        public void DeleteTask(Task task)
+        public async Threading.Task DeleteTaskAsync(Task task)
         {
-            channel.DeleteTask(mapper.Map<TaskServiceReference.TaskDO>(task));
+            await channel.DeleteTaskAsync(mapper.Map<TaskServiceReference.TaskDO>(task));
         }
 
-        public void UpdateTask(Task task)
+        public async Threading.Task UpdateTaskAsync(Task task)
         {
-            TaskServiceReference.TaskDO rTask = channel.UpdateTask(mapper.Map<TaskServiceReference.TaskDO>(task));
+            TaskServiceReference.TaskDO rTask = await channel.UpdateTaskAsync(mapper.Map<TaskServiceReference.TaskDO>(task));
             mapper.Map(rTask, task);
         }
 

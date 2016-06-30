@@ -1,13 +1,14 @@
 ﻿using Com.Pinz.Client.DomainModel;
+using Threading = System.Threading.Tasks;
 
 namespace Com.Pinz.Client.RemoteServiceConsumer.Service
 {
     public interface IPinzAdminRemoteService
     {
-        Company CreateCompany(Company company);
+        Threading.Task<Company> CreateCompanyAsync(Company company);
 
-        void UpdateCompany(Company company);
+        Threading.Task UpdateCompanyAsync(Company company);
 
-        void DeleteCompany(Company company);
+        Threading.Task DeleteCompanyAsync(Company company);
     }
 }

@@ -1,31 +1,32 @@
 ﻿using Com.Pinz.Client.DomainModel;
 using Com.Pinz.DomainModel;
 using System.Collections.Generic;
+using Threading = System.Threading.Tasks;
 
 namespace Com.Pinz.Client.RemoteServiceConsumer.Service
 {
     public interface ITaskRemoteService
     {
-        List<Task> ReadAllTasksByCategory(Category category);
+        Threading.Task<List<Task>> ReadAllTasksByCategoryAsync(Category category);
 
-        List<Category> ReadAllCategoriesByProject(Project project);
+        Threading.Task<List<Category>> ReadAllCategoriesByProjectAsync(Project project);
 
-        List<Project> ReadAllProjectsForCurrentUser();
+        Threading.Task<List<Project>> ReadAllProjectsForCurrentUserAsync();
 
-        void MoveTaskToCategory(Task task, Category category);
+        Threading.Task MoveTaskToCategoryAsync(Task task, Category category);
 
-        void ChangeTaskStatus(Task task, TaskStatus newStatus);
+        Threading.Task ChangeTaskStatusAsync(Task task, TaskStatus newStatus);
 
-        Task CreateTaskInCategory(Category category);
+        Threading.Task<Task> CreateTaskInCategoryAsync(Category category);
 
-        void UpdateTask(Task task);
+        Threading.Task UpdateTaskAsync(Task task);
 
-        void DeleteTask(Task task);
+        Threading.Task DeleteTaskAsync(Task task);
 
-        Category CreateCategoryInProject(Project project);
+        Threading.Task<Category> CreateCategoryInProjectAsync(Project project);
 
-        void UpdateCategory(Category category);
+        Threading.Task UpdateCategoryAsync(Category category);
 
-        void DeleteCategory(Category category);
+        Threading.Task DeleteCategoryAsync(Category category);
     }
 }

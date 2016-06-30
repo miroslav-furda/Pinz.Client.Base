@@ -1,43 +1,44 @@
 ﻿using Com.Pinz.Client.DomainModel;
 using System;
 using System.Collections.Generic;
+using Threading = System.Threading.Tasks;
 
 namespace Com.Pinz.Client.RemoteServiceConsumer.Service
 {
     public interface IAdministrationRemoteService
     {
-        User InviteNewUser(string newUserEmail, Project project, User invitingUser);
+        Threading.Task<User> InviteNewUserAsync(string newUserEmail, Project project, User invitingUser);
 
-        void SetProjectAdminFlag(Guid userId, Guid projectId, bool isProjectAdmin);
+        Threading.Task SetProjectAdminFlagAsync(Guid userId, Guid projectId, bool isProjectAdmin);
 
-        List<User> ReadAllUsersByProject(Project project);
+        Threading.Task<List<User>> ReadAllUsersByProjectAsync(Project project);
 
-        List<ProjectUser> ReadAllProjectUsersInProject(Project project);
+        Threading.Task<List<ProjectUser>> ReadAllProjectUsersInProjectAsync(Project project);
 
-        List<Project> ReadAdminProjectsForUser(User user);
+        Threading.Task<List<Project>> ReadAdminProjectsForUserAsync(User user);
 
-        bool ChangeUserPassword(User user, string oldPassword, string newPassword, string newPassword2);
+        Threading.Task<bool> ChangeUserPasswordAsync(User user, string oldPassword, string newPassword, string newPassword2);
 
-        List<Project> ReadProjectsForCompany(Company company);
+        Threading.Task<List<Project>> ReadProjectsForCompanyAsync(Company company);
 
-        List<User> ReadAllUsersForCompany(Guid companyId);
+        Threading.Task<List<User>> ReadAllUsersForCompanyAsync(Guid companyId);
 
-        Company ReadCompanyById(Guid id);
+        Threading.Task<Company> ReadCompanyByIdAsync(Guid id);
 
-        void AddUserToProject(User user, Project project, bool isProjectAdmin);
+        Threading.Task AddUserToProjectAsync(User user, Project project, bool isProjectAdmin);
 
-        void RemoveUserFromProject(User user, Project project);
+        Threading.Task RemoveUserFromProjectAsync(User user, Project project);
 
-        Project CreateProject(Project project);
+        Threading.Task<Project> CreateProjectAsync(Project project);
 
-        void UpdateProject(Project project);
+        Threading.Task UpdateProjectAsync(Project project);
 
-        void DeleteProject(Project project);
+        Threading.Task DeleteProjectAsync(Project project);
 
-        User CreateUser(User user);
+        Threading.Task<User> CreateUserAsync(User user);
 
-        void UpdateUser(User user);
+        Threading.Task UpdateUserAsync(User user);
 
-        void DeleteUser(User user);
+        Threading.Task DeleteUserAsync(User user);
     }
 }

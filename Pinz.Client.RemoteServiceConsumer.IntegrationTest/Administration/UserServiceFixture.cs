@@ -22,7 +22,13 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
         private Company company;
 
         [TestInitialize]
-        public void InitializeKernel()
+        public void InitTest()
+        {
+            System.Threading.Tasks.Task res = InitializeKernelAsync();
+            res.Wait();
+        }
+
+        public async System.Threading.Tasks.Task InitializeKernelAsync()
         {
             kernel = new StandardKernel();
             kernel.Load(new ServiceConsumerNinjectModule());
@@ -41,19 +47,20 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             {
                 Name = "Pinz Online"
             };
-            company = pinzService.CreateCompany(company1);
+            company = await pinzService.CreateCompanyAsync(company1);
         }
 
         [TestCleanup()]
         public void UnloadKernel()
         {
-            pinzService.DeleteCompany(company);
+            var res = pinzService.DeleteCompanyAsync(company);
+            res.Wait();
 
             kernel.Dispose();
         }
 
         [TestMethod]
-        public void CreateUser()
+        public async System.Threading.Tasks.Task CreateUser()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
@@ -64,14 +71,14 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             user.FirstName = "Miro";
             user.FamilyName = "Furda";
 
-            service.CreateUser(user);
+            await service.CreateUserAsync(user);
 
             Assert.IsNotNull(user.UserId);
         }
 
         [TestMethod]
         [ExpectedException(typeof(FaultException<ExceptionDetail>), "Validation failed.")]
-        public void CreateUser_ValidationFailed()
+        public async System.Threading.Tasks.Task CreateUser_ValidationFailed()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
@@ -82,11 +89,11 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             user.FirstName = "Miro";
             user.FamilyName = "Furda";
 
-            service.CreateUser(user);
+            await service.CreateUserAsync(user);
         }
 
         [TestMethod]
-        public void UpdateUser()
+        public async System.Threading.Tasks.Task UpdateUser()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
@@ -97,20 +104,20 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             user.FirstName = "Miro";
             user.FamilyName = "Furda";
 
-            service.CreateUser(user);
+            await service.CreateUserAsync(user);
             Assert.IsNotNull(user.UserId);
 
             user.FamilyName = "Neungamat";
-            service.UpdateUser(user);
+            await service.UpdateUserAsync(user);
 
-            List<User> users = service.ReadAllUsersForCompany(company.CompanyId);
+            List<User> users = await service.ReadAllUsersForCompanyAsync(company.CompanyId);
             Assert.AreEqual(1, users.Count());
             Assert.AreEqual(user.FamilyName, users[0].FamilyName);
         }
 
         [TestMethod]
         [ExpectedException(typeof(FaultException<ExceptionDetail>), "Validation failed.")]
-        public void UpdateUser_ValidationFailed()
+        public async System.Threading.Tasks.Task UpdateUser_ValidationFailed()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
@@ -121,15 +128,15 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             user.FirstName = "Miro";
             user.FamilyName = "Furda";
 
-            service.CreateUser(user);
+            await service.CreateUserAsync(user);
             Assert.IsNotNull(user.UserId);
 
             user.EMail = null;
-            service.UpdateUser(user);
+            await service.UpdateUserAsync(user);
         }
 
         [TestMethod]
-        public void DeleteUser()
+        public async System.Threading.Tasks.Task DeleteUser()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
@@ -140,11 +147,11 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             user.FirstName = "Miro";
             user.FamilyName = "Furda";
 
-            service.CreateUser(user);
+            await service.CreateUserAsync(user);
             Assert.IsNotNull(user.UserId);
 
-            service.DeleteUser(user);
-            List<User> users = service.ReadAllUsersForCompany(company.CompanyId);
+            await service.DeleteUserAsync(user);
+            List<User> users = await service.ReadAllUsersForCompanyAsync(company.CompanyId);
             Assert.AreEqual(0, users.Count());
         }
 

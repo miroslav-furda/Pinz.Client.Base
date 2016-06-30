@@ -5,6 +5,7 @@ using AutoMapper;
 using System.ServiceModel;
 using Com.Pinz.Client.RemoteServiceConsumer.Service;
 using Com.Pinz.Client.DomainModel;
+using Threading = System.Threading.Tasks;
 
 namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
 {
@@ -21,113 +22,113 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
             this.clientFactory = clientFactory;
         }
 
-        public User InviteNewUser(string newUserEmail, Project project, User invitingUser)
+        public async Threading.Task<User> InviteNewUserAsync(string newUserEmail, Project project, User invitingUser)
         {
-            AdministrationServiceReference.UserDO user = adminChannel.InviteNewUser(newUserEmail, project.ProjectId, invitingUser.UserId);
+            AdministrationServiceReference.UserDO user = await adminChannel.InviteNewUserAsync(newUserEmail, project.ProjectId, invitingUser.UserId);
             return mapper.Map<User>(user);
         }
 
-        public void SetProjectAdminFlag(Guid userId, Guid projectId, bool isProjectAdmin)
+        public async Threading.Task SetProjectAdminFlagAsync(Guid userId, Guid projectId, bool isProjectAdmin)
         {
-            adminChannel.SetProjectAdminFlag(userId, projectId, isProjectAdmin);
+            await adminChannel.SetProjectAdminFlagAsync(userId, projectId, isProjectAdmin);
         }
 
-        public bool ChangeUserPassword(User user, string oldPassword, string newPassword, string newPassword2)
+        public async Threading.Task<bool> ChangeUserPasswordAsync(User user, string oldPassword, string newPassword, string newPassword2)
         {
-            return adminChannel.ChangeUserPassword(user.UserId, oldPassword, newPassword, newPassword2);
+            return await adminChannel.ChangeUserPasswordAsync(user.UserId, oldPassword, newPassword, newPassword2);
         }
 
-        public void AddUserToProject(User user, Project project, bool isProjectAdmin)
+        public async Threading.Task AddUserToProjectAsync(User user, Project project, bool isProjectAdmin)
         {
-            adminChannel.AddUserToProject(user.UserId, project.ProjectId, isProjectAdmin);
+            await adminChannel.AddUserToProjectAsync(user.UserId, project.ProjectId, isProjectAdmin);
         }
 
-        public void RemoveUserFromProject(User user, Project project)
+        public async Threading.Task RemoveUserFromProjectAsync(User user, Project project)
         {
-            adminChannel.RemoveUserFromProject(user.UserId, project.ProjectId);
+            await adminChannel.RemoveUserFromProjectAsync(user.UserId, project.ProjectId);
         }
 
-        public List<User> ReadAllUsersForCompany(Guid companyId)
+        public async Threading.Task<List<User>> ReadAllUsersForCompanyAsync(Guid companyId)
         {
-            List<AdministrationServiceReference.UserDO> rUsers = adminChannel.ReadAllUsersForCompanyId(companyId);
+            List<AdministrationServiceReference.UserDO> rUsers = await adminChannel.ReadAllUsersForCompanyIdAsync(companyId);
             List<User> users = mapper.Map<List<AdministrationServiceReference.UserDO>, List<User>>(rUsers);
             return users;
         }
 
-        public List<User> ReadAllUsersByProject(Project project)
+        public async Threading.Task<List<User>> ReadAllUsersByProjectAsync(Project project)
         {
-            List<AdministrationServiceReference.UserDO> rUsers = adminChannel.ReadAllUsersByProject(project.ProjectId);
+            List<AdministrationServiceReference.UserDO> rUsers = await adminChannel.ReadAllUsersByProjectAsync(project.ProjectId);
             List<User> userList = mapper.Map<List<AdministrationServiceReference.UserDO>, List<User>>(rUsers);
             return userList;
         }
 
-        public List<ProjectUser> ReadAllProjectUsersInProject(Project project)
+        public async Threading.Task<List<ProjectUser>> ReadAllProjectUsersInProjectAsync(Project project)
         {
-            List<AdministrationServiceReference.ProjectUserDO> rProjectUsers = adminChannel.ReadAllProjectUsersInProject(project.ProjectId);
+            List<AdministrationServiceReference.ProjectUserDO> rProjectUsers = await adminChannel.ReadAllProjectUsersInProjectAsync(project.ProjectId);
             List<ProjectUser> userList = mapper.Map<List<AdministrationServiceReference.ProjectUserDO>, List<ProjectUser>>(rProjectUsers);
             return userList;
 
         }
 
 
-        public Company ReadCompanyById(Guid id)
+        public async Threading.Task<Company> ReadCompanyByIdAsync(Guid id)
         {
-            AdministrationServiceReference.CompanyDO rCompany = adminChannel.ReadCompanyById(id);
+            AdministrationServiceReference.CompanyDO rCompany = await adminChannel.ReadCompanyByIdAsync(id);
             return mapper.Map<Company>(rCompany);
         }
 
-        public List<Project> ReadProjectsForCompany(Company company)
+        public async Threading.Task<List<Project>> ReadProjectsForCompanyAsync(Company company)
         {
-            List<AdministrationServiceReference.ProjectDO> rProjects = adminChannel.ReadProjectsForCompanyId(company.CompanyId);
+            List<AdministrationServiceReference.ProjectDO> rProjects = await adminChannel.ReadProjectsForCompanyIdAsync(company.CompanyId);
             List<Project> projectList = mapper.Map<List<AdministrationServiceReference.ProjectDO>, List<Project>>(rProjects);
             return projectList;
         }
 
-        public List<Project> ReadAdminProjectsForUser(User user)
+        public async Threading.Task<List<Project>> ReadAdminProjectsForUserAsync(User user)
         {
-            List<AdministrationServiceReference.ProjectDO> rProjects = adminChannel.ReadAdminProjectsForUser(user.UserId);
+            List<AdministrationServiceReference.ProjectDO> rProjects = await adminChannel.ReadAdminProjectsForUserAsync(user.UserId);
             List<Project> projectList = mapper.Map<List<AdministrationServiceReference.ProjectDO>, List<Project>>(rProjects);
             return projectList;
         }
 
 
         #region Project CUD
-        public Project CreateProject(Project project)
+        public async Threading.Task<Project> CreateProjectAsync(Project project)
         {
-            AdministrationServiceReference.ProjectDO rProject = adminChannel.CreateProject(mapper.Map<AdministrationServiceReference.ProjectDO>(project));
+            AdministrationServiceReference.ProjectDO rProject = await adminChannel.CreateProjectAsync(mapper.Map<AdministrationServiceReference.ProjectDO>(project));
             mapper.Map(rProject, project);
             return project;
         }
 
-        public void UpdateProject(Project project)
+        public async Threading.Task UpdateProjectAsync(Project project)
         {
-            AdministrationServiceReference.ProjectDO rProject = adminChannel.UpdateProject(mapper.Map<AdministrationServiceReference.ProjectDO>(project));
+            AdministrationServiceReference.ProjectDO rProject = await adminChannel.UpdateProjectAsync(mapper.Map<AdministrationServiceReference.ProjectDO>(project));
             mapper.Map(rProject, project);
         }
 
-        public void DeleteProject(Project project)
+        public async Threading.Task DeleteProjectAsync(Project project)
         {
-            adminChannel.DeleteProject(mapper.Map<AdministrationServiceReference.ProjectDO>(project));
+            await adminChannel.DeleteProjectAsync(mapper.Map<AdministrationServiceReference.ProjectDO>(project));
         }
         #endregion
 
         #region User CUD
-        public void DeleteUser(User user)
+        public async Threading.Task DeleteUserAsync(User user)
         {
-            adminChannel.DeleteUser(mapper.Map<AdministrationServiceReference.UserDO>(user));
+            await adminChannel.DeleteUserAsync(mapper.Map<AdministrationServiceReference.UserDO>(user));
         }
 
-        public User CreateUser(User user)
+        public async Threading.Task<User> CreateUserAsync(User user)
         {
             AdministrationServiceReference.UserDO rUser = mapper.Map<AdministrationServiceReference.UserDO>(user);
-            rUser = adminChannel.CreateUser(rUser);
+            rUser = await adminChannel.CreateUserAsync(rUser);
             mapper.Map(rUser, user);
             return user;
         }
 
-        public void UpdateUser(User user)
+        public async Threading.Task UpdateUserAsync(User user)
         {
-            AdministrationServiceReference.UserDO rUser = adminChannel.UpdateUser(mapper.Map<AdministrationServiceReference.UserDO>(user));
+            AdministrationServiceReference.UserDO rUser = await adminChannel.UpdateUserAsync(mapper.Map<AdministrationServiceReference.UserDO>(user));
             mapper.Map(rUser, user);
         }
         #endregion 

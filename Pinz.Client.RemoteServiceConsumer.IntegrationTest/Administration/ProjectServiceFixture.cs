@@ -22,7 +22,13 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
         private UserNameClientCredentials credentials;
 
         [TestInitialize]
-        public void InitializeKernel()
+        public void InitTest()
+        {
+            System.Threading.Tasks.Task res = InitializeKernelAsync();
+            res.Wait();
+        }
+
+        public async System.Threading.Tasks.Task InitializeKernelAsync()
         {
             kernel = new StandardKernel();
             kernel.Load(new ServiceConsumerNinjectModule());
@@ -41,19 +47,20 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             {
                 Name = "Pinz Online"
             };
-            company = pinzService.CreateCompany(company1);
+            company = await pinzService.CreateCompanyAsync(company1);
         }
 
         [TestCleanup()]
         public void UnloadKernel()
         {
-            pinzService.DeleteCompany(company);
+            var res = pinzService.DeleteCompanyAsync(company);
+            res.Wait();
 
             kernel.Dispose();
         }
 
         [TestMethod]
-        public void CreateProject()
+        public async System.Threading.Tasks.Task  CreateProject()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
@@ -62,13 +69,13 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             project.Name = "My test project";
             project.Description = "Descirption";
 
-            service.CreateProject(project);
+            await service.CreateProjectAsync(project);
 
             Assert.IsNotNull(project.ProjectId);
         }
 
         [TestMethod]
-        public void ReadAllProjects()
+        public async System.Threading.Tasks.Task ReadAllProjects()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
@@ -76,16 +83,16 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             project.CompanyId = company.CompanyId;
             project.Name = "My test project";
             project.Description = "Descirption";
-            service.CreateProject(project);
+            await service.CreateProjectAsync(project);
             Assert.IsNotNull(project.ProjectId);
 
-            List<Project> projects = service.ReadProjectsForCompany(company);
+            List<Project> projects = await service.ReadProjectsForCompanyAsync(company);
             Assert.AreEqual(1, projects.Count);
         }
 
         [TestMethod]
         [ExpectedException(typeof(FaultException<ExceptionDetail>), "Validation failed.")]
-        public void CreateProject_ValidationFailed()
+        public async System.Threading.Tasks.Task  CreateProject_ValidationFailed()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
@@ -93,11 +100,11 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             project.CompanyId = company.CompanyId;
             project.Description = "Descirption";
 
-            service.CreateProject(project);
+            await service.CreateProjectAsync(project);
         }
 
         [TestMethod]
-        public void UpdateProject()
+        public async System.Threading.Tasks.Task  UpdateProject()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
@@ -106,20 +113,20 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             project.Name = "My test project";
             project.Description = "Description";
 
-            service.CreateProject(project);
+            await service.CreateProjectAsync(project);
             Assert.IsNotNull(project.ProjectId);
 
             project.Name = "New name";
-            service.UpdateProject(project);
+            await service.UpdateProjectAsync(project);
 
-            List<Project> projects = service.ReadProjectsForCompany(company);
+            List<Project> projects = await service.ReadProjectsForCompanyAsync(company);
             Assert.AreEqual(1, projects.Count());
             Assert.AreEqual(project.Name, projects[0].Name);
         }
 
         [TestMethod]
         [ExpectedException(typeof(FaultException<ExceptionDetail>), "Validation failed.")]
-        public void UpdateProject_ValidationFailed()
+        public async System.Threading.Tasks.Task  UpdateProject_ValidationFailed()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
@@ -128,15 +135,15 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             project.Name = "My test project";
             project.Description = "Description";
 
-            service.CreateProject(project);
+            await service.CreateProjectAsync(project);
             Assert.IsNotNull(project.ProjectId);
 
             project.Name = null;
-            service.UpdateProject(project);
+            await service.UpdateProjectAsync(project);
         }
 
         [TestMethod]
-        public void DeleteProject()
+        public async System.Threading.Tasks.Task  DeleteProject()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
 
@@ -145,12 +152,12 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Administration
             project.Name = "My test project";
             project.Description = "Description";
 
-            service.CreateProject(project);
+            await service.CreateProjectAsync(project);
             Assert.IsNotNull(project.ProjectId);
 
-            service.DeleteProject(project);
+            await service.DeleteProjectAsync(project);
 
-            List<Project> projects = service.ReadProjectsForCompany(company);
+            List<Project> projects = await service.ReadProjectsForCompanyAsync(company);
             Assert.AreEqual(0, projects.Count());
         }
     }

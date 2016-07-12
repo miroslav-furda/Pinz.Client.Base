@@ -64,7 +64,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.PinzAdmin
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException<ExceptionDetail>), "Validation failed.")]
+        [ExpectedException(typeof(FaultException), "Validation failed.")]
         public async System.Threading.Tasks.Task CreateCompany_ValidationFailed()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);
@@ -87,7 +87,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.PinzAdmin
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException<ExceptionDetail>), "Validation failed.")]
+        [ExpectedException(typeof(FaultException), "Validation failed.")]
         public async System.Threading.Tasks.Task UpdateCompany_ValidationFailed()
         {
             Assert.AreNotEqual(Guid.Empty, company.CompanyId);

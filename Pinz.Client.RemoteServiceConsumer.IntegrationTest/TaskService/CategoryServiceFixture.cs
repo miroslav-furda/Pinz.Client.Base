@@ -114,7 +114,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.TaskService
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException<ExceptionDetail>), "Validation failed.")]
+        [ExpectedException(typeof(FaultException), "Validation failed.")]
         public async System.Threading.Tasks.Task UpdateCategory_ValidationFailed()
         {
             Assert.AreNotEqual(Guid.Empty, project.ProjectId);

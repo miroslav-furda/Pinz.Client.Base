@@ -8,6 +8,7 @@ namespace Com.Pinz.Client.Commons.Model
         private bool _dueToday;
         private bool _notStarted;
         private bool _inProgress;
+        private bool _myTasks;
 
         public bool Complete
         {
@@ -31,6 +32,12 @@ namespace Com.Pinz.Client.Commons.Model
         {
             get { return _inProgress; }
             set { SetProperty(ref this._inProgress, value); }
+        }
+
+        public bool MyTasks
+        {
+            get { return _myTasks; }
+            set { SetProperty(ref this._myTasks, value); }
         }
     }
 }

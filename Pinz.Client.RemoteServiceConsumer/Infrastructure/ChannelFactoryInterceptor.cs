@@ -77,19 +77,6 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Infrastructure
                     Log.Fatal("Falied to execute call ! ", ex2);
                     throw;
                 }
-                /*
-
-                 catch (Exception ex)
-                 {
-                     Log.Fatal("Falied to execute call ! ", ex);
-                     throw ex;
-                 }
-                 finally
-                 {
-                     serviceBase.CloseChannel();
-                     indicator.IsServiceRunning = false;
-                 }
-                 */
             }
         }
 
@@ -135,6 +122,8 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Infrastructure
             {
                 await task;
                 LogAfter(invocation);
+                serviceBase.CloseChannel();
+                indicator.IsServiceRunning = false;
             }
             catch (FaultException ex)
             {
@@ -163,6 +152,10 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.Infrastructure
             try
             {
                 T value = await task;
+                LogAfter(invocation);
+                serviceBase.CloseChannel();
+                indicator.IsServiceRunning = false;
+
                 return value;
             }
             catch (FaultException ex)

@@ -72,7 +72,7 @@ namespace Com.Pinz.Client.Commons.Prism
                     }
                 }
             }
-            return _validationErrors.Count > 0;
+            return _validationErrors.Count == 0;
         }
 
 

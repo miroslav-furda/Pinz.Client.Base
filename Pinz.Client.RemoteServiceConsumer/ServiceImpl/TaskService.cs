@@ -44,6 +44,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
         {
             List<TaskServiceReference.TaskDO> rTasks = await channel.ReadAllTasksByCategoryIdAsync(category.CategoryId);
             List<Task> taskList = mapper.Map<List<TaskServiceReference.TaskDO>, List<Task>>(rTasks);
+            taskList.ForEach(i => i.Category = category);
             return taskList;
         }
 

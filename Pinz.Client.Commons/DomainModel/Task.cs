@@ -91,6 +91,13 @@ namespace Com.Pinz.Client.DomainModel
             set { SetProperty(ref this._categoryId, value); }
         }
 
+        private Category _category;
+        public Category Category
+        {
+            get { return _category; }
+            set { SetProperty(ref _category, value); }
+        }
+
         private Guid? _userId;
         public Guid? UserId
         {

@@ -4,6 +4,11 @@ namespace Com.Pinz.Client.DomainModel
 {
     public class ProjectUser : User, IProjectUser
     {
-        public bool IsProjectAdmin { get; set; }
+        private bool _IProjectAdmin;
+        public bool IsProjectAdmin
+        {
+            get { return _IProjectAdmin; }
+            set { SetProperty(ref this._IProjectAdmin, value); }
+        }
     }
 }

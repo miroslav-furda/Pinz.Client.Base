@@ -11,6 +11,7 @@ namespace Com.Pinz.Client.DomainModel
 
         private string _eMail;
         [Required]//(ErrorMessageResourceName = "User_EMail_Required", ErrorMessageResourceType = typeof(Resources))]
+        [EmailAddress]
         public string EMail
         {
             get { return _eMail; }

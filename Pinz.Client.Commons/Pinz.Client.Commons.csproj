@@ -68,6 +68,7 @@
     <Compile Include="DomainModel\ProjectUser.cs" />
     <Compile Include="DomainModel\Task.cs" />
     <Compile Include="DomainModel\User.cs" />
+    <Compile Include="Event\TimeoutErrorEvent.cs" />
     <Compile Include="Model\ApplicationGlobalModel.cs" />
     <Compile Include="Model\TaskFilter.cs" />
     <Compile Include="Prism\AwaitableDelegateCommand.cs" />

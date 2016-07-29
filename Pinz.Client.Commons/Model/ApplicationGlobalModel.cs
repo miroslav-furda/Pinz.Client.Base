@@ -1,5 +1,7 @@
 ﻿using Com.Pinz.Client.DomainModel;
 using Prism.Mvvm;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Com.Pinz.Client.Model
 {
@@ -20,9 +22,21 @@ namespace Com.Pinz.Client.Model
             }
         }
 
+        private Dictionary<Project, ObservableCollection<User>> _projectUsers { get; set; }
+
         public ApplicationGlobalModel()
         {
             IsUserLoggedIn = false;
+            _projectUsers = new Dictionary<Project, ObservableCollection<User>>();
+        }
+
+        public ObservableCollection<User> GetUsersForProject(Project project)
+        {
+            if(!_projectUsers.ContainsKey(project))
+            {
+                _projectUsers.Add(project, new ObservableCollection<User>());
+            }
+            return _projectUsers[project];
         }
 
     }

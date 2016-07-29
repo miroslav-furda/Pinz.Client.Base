@@ -28,6 +28,13 @@ namespace Com.Pinz.Client.DomainModel
             set { SetProperty(ref this._projectId, value); }
         }
 
+        private Project _project;
+        public Project Project
+        {
+            get { return _project; }
+            set { SetProperty(ref _project, value); }
+        }
+
         public override string ToString()
         {
             return string.Format("Category[CategoryId:{0}, Name:{1}, ProjectId:{2}", CategoryId, Name, ProjectId);

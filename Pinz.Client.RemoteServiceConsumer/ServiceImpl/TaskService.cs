@@ -37,6 +37,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
         {
             List<TaskServiceReference.CategoryDO> rCategories = await channel.ReadAllCategoriesByProjectIdAsync(project.ProjectId);
             List<Category> categoryList = mapper.Map<List<TaskServiceReference.CategoryDO>, List<Category>>(rCategories);
+            categoryList.ForEach(c => c.Project= project);
             return categoryList;
         }
 
@@ -51,6 +52,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
         public async Threading.Task MoveTaskToCategoryAsync(Task task, Category category)
         {
             task.CategoryId = category.CategoryId;
+            task.Category = category;
             await UpdateTaskAsync(task);
         }
 
@@ -93,6 +95,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
             };
             TaskServiceReference.CategoryDO rCategory = await channel.CreateCategoryAsync(mapper.Map<TaskServiceReference.CategoryDO>(category));
             mapper.Map(rCategory, category);
+            category.Project = project;
             return category;
         }
 
@@ -122,6 +125,7 @@ namespace Com.Pinz.Client.RemoteServiceConsumer.ServiceImpl
             };
             TaskServiceReference.TaskDO rTask = await channel.CreateTaskAsync(mapper.Map<TaskServiceReference.TaskDO>(task), clientCredentials.UserName);
             mapper.Map(rTask, task);
+            task.Category = category;
             return task;
         }
 
